@@ -7,4 +7,5 @@
 .todo-list {
     list-style: none;
     background-color: lime;
+    padding: 0;
 }

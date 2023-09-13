@@ -1,15 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Todoitem from "./Todoitem";
 
 function Todolist() {
     // was in app.jsx but moved into its own file then imported into app
 
-    const [todos, setTodos] = useState([
-        { id: 0, label: 'Kaffe', completed: false },
-        { id: 1, label: 'Kakor', completed: false },
-        { id: 2, label: 'Punsch rullar', completed: false },
-        { id: 3, label: 'Kaffe', completed: true },
-    ]);
+    const [todos, setTodos] = useState(() => {
+        return JSON.parse(localStorage.getItem('todos')) || [];
+    });
 
     const toggleTaskCompleted = (id) => {   // göra kopia, ändra kopia, sätta orginal till ändrad kopia
         const newTodos = todos.map(todo => {
@@ -26,7 +23,33 @@ function Todolist() {
         setTodos(newTodos);
     }
 
+    // newer stuff for adding and deleting items
+    const deleteTodo = (id) => {
+        const newTodos = todos.filter(todo => todo.id !== id)
+        setTodos(newTodos)
+    }
+
+    const deleteAll = () => {
+        const newTodos = []
+        setTodos(newTodos)
+    }
+
+    const addTodo = () => {
+        const newTodo = document.getElementById('newTodo').value;
+        if (newTodo === '') return
+        const newTodos = [...todos, {id: todos.length + 1, label: newTodo, completed: false}]
+        setTodos(newTodos)
+    }
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos])
+
     return (
+        <>
+        <input type="text" id="newTodo" placeholder="Skriv in en sak"/>
+        <button onClick={() => { addTodo() }}>Lägg till</button>
+        <button onClick={() => { deleteAll() }}>Ta bort alla</button>
         <ul className='todo-list'>
             {todos.map((todo, index) =>
                 <Todoitem
@@ -35,9 +58,11 @@ function Todolist() {
                     label={todo.label}
                     completed={todo.completed}
                     toggleTaskCompleted={toggleTaskCompleted}
+                    deleteTodo={deleteTodo}
                 />
             )}
         </ul>
+        </>
     )
 }
 

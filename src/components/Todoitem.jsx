@@ -10,7 +10,9 @@ function Todoitem(props) {
             type="checkbox"
             checked={completed}
             onChange={() => { props.toggleTaskCompleted(id)}}
+            onDelete={() => { props.deleteTodo(id)}}
         />
+        <button onClick={() => {props.deleteTodo(id);}}>Delete</button>
     </li>
     )
 }
