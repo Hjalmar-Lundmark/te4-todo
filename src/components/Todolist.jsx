@@ -30,15 +30,35 @@ function Todolist() {
     }
 
     const deleteAll = () => {
-        const newTodos = []
-        setTodos(newTodos)
+        setTodos([]); 
+        localStorage.setItem('index', 0) // create number that rises every added item to use for items id / resets it to zero 
+    }
+
+    const checkAll = () => {
+        console.log(todos)
+        const newTodos = todos.map(todo => {
+            const newTodo = todo
+            newTodo.completed = true
+            return newTodo
+        })
+        setTodos(newTodos);
+    }
+
+    const unCheckAll = () => {
+        const newTodos = todos.map(todo => {
+            const newTodo = todo
+            newTodo.completed = false
+            return newTodo
+        })
+        setTodos(newTodos);
     }
 
     const addTodo = () => {
         const newTodo = document.getElementById('newTodo').value;
         if (newTodo === '') return
-        const newTodos = [...todos, {id: todos.length + 1, label: newTodo, completed: false}]
+        const newTodos = [...todos, { id: localStorage.getItem('index'), label: newTodo, completed: false }]    //uses locally stored number to get index
         setTodos(newTodos)
+        localStorage.setItem('index', parseInt(localStorage.getItem('index'))+1 || parseInt(todos.length)+1)    // adds number +1 for ever post created
     }
 
     useEffect(() => {
@@ -47,21 +67,23 @@ function Todolist() {
 
     return (
         <>
-        <input type="text" id="newTodo" placeholder="Skriv in en sak"/>
-        <button onClick={() => { addTodo() }}>Lägg till</button>
-        <button onClick={() => { deleteAll() }}>Ta bort alla</button>
-        <ul className='todo-list'>
-            {todos.map((todo, index) =>
-                <Todoitem
-                    key={index}
-                    id={todo.id}
-                    label={todo.label}
-                    completed={todo.completed}
-                    toggleTaskCompleted={toggleTaskCompleted}
-                    deleteTodo={deleteTodo}
-                />
-            )}
-        </ul>
+            <input type="text" id="newTodo" placeholder="Skriv in en sak" />
+            <button onClick={() => { addTodo() }}>Lägg till</button>
+            <button onClick={() => { deleteAll() }}>Ta bort alla</button>
+            <button onClick={() => { checkAll() }}>Välj alla</button>
+            <button onClick={() => { unCheckAll() }}>Avvälj alla</button>
+            <ul className='todo-list'>
+                {todos.map((todo, index) =>
+                    <Todoitem
+                        key={index}
+                        id={todo.id}
+                        label={todo.label}
+                        completed={todo.completed}
+                        toggleTaskCompleted={toggleTaskCompleted}
+                        deleteTodo={deleteTodo}
+                    />
+                )}
+            </ul>
         </>
     )
 }
