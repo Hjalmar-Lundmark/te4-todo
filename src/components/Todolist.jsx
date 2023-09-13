@@ -34,6 +34,11 @@ function Todolist() {
         localStorage.setItem('index', 0) // create number that rises every added item to use for items id / resets it to zero 
     }
 
+    const deleteSelected = () => {
+        const newTodos = todos.filter(todo => todo.completed !== true)
+        setTodos(newTodos)
+    }
+
     const checkAll = () => {
         console.log(todos)
         const newTodos = todos.map(todo => {
@@ -70,6 +75,7 @@ function Todolist() {
             <input type="text" id="newTodo" placeholder="Skriv in en sak" />
             <button onClick={() => { addTodo() }}>Lägg till</button>
             <button onClick={() => { deleteAll() }}>Ta bort alla</button>
+            <button onClick={() => { deleteSelected() }}>Ta bort klara</button>
             <button onClick={() => { checkAll() }}>Välj alla</button>
             <button onClick={() => { unCheckAll() }}>Avvälj alla</button>
             <ul className='todo-list'>
