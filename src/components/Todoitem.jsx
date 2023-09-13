@@ -1,4 +1,5 @@
 import './Todoitem.css'
+import { BiTrash } from "react-icons/bi";
 
 function Todoitem(props) {
     let {id, completed, label} = props;
@@ -12,7 +13,7 @@ function Todoitem(props) {
             onChange={() => { props.toggleTaskCompleted(id)}}
             onDelete={() => { props.deleteTodo(id)}}
         />
-        <button onClick={() => {props.deleteTodo(id);}}>Delete</button>
+        <button onClick={() => {props.deleteTodo(id);}}><h1><BiTrash /></h1></button>
     </li>
     )
 }
