@@ -1,0 +1,8 @@
+.functions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.funcR > button {
+    margin-left: 1rem;
+}

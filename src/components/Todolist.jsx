@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Todoitem from "./Todoitem";
+import './Todolist.css'
 
 function Todolist() {
     // was in app.jsx but moved into its own file then imported into app
@@ -30,7 +31,7 @@ function Todolist() {
     }
 
     const deleteAll = () => {
-        setTodos([]); 
+        setTodos([]);
         localStorage.setItem('index', 0) // create number that rises every added item to use for items id / resets it to zero 
     }
 
@@ -60,14 +61,16 @@ function Todolist() {
 
     const addTodo = () => {
         if (localStorage.getItem('index') === null) { // is this the best way to check this
-        localStorage.setItem('index', 0)    // The first time user hits this, it creates a number for items id
+            localStorage.setItem('index', 0)    // The first time user hits this, it creates a number for items id
         } // without this it becomes null, which I think works identically well but I want it on zero
 
         const newTodo = document.getElementById('newTodo').value;
         if (newTodo === '') return
         const newTodos = [...todos, { id: localStorage.getItem('index'), label: newTodo, completed: false }]    //uses locally stored number to get index
         setTodos(newTodos)
-        localStorage.setItem('index', parseInt(localStorage.getItem('index'))+1)    // adds number +1 for ever item created
+        localStorage.setItem('index', parseInt(localStorage.getItem('index')) + 1)    // adds number +1 for ever item created
+
+        document.querySelector('#newTodo').value = ''
     }
 
     useEffect(() => {
@@ -76,12 +79,18 @@ function Todolist() {
 
     return (
         <>
-            <input type="text" id="newTodo" placeholder="Skriv in en sak" />
-            <button onClick={() => { addTodo() }}>Lägg till</button>
-            <button onClick={() => { deleteAll() }}>Ta bort alla</button>
-            <button onClick={() => { deleteSelected() }}>Ta bort klara</button>
-            <button onClick={() => { checkAll() }}>Välj alla</button>
-            <button onClick={() => { unCheckAll() }}>Avvälj alla</button>
+            <div className="functions">
+                <div className="funcL">
+                    <input type="text" id="newTodo" placeholder="Skriv in en sak" />
+                    <button onClick={() => { addTodo() }}>Lägg till</button>
+                </div>
+                <div className="funcR">
+                    <button onClick={() => { deleteAll() }}>Ta bort alla</button>
+                    <button onClick={() => { deleteSelected() }}>Ta bort klara</button>
+                    <button onClick={() => { checkAll() }}>Välj alla</button>
+                    <button onClick={() => { unCheckAll() }}>Avvälj alla</button>
+                </div>
+            </div>
             <ul className='todo-list'>
                 {todos.map((todo, index) =>
                     <Todoitem
