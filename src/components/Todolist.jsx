@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import Todoitem from "./Todoitem";
+import NewTodo from "./NewTodo";
 import './Todolist.css'
 
 function Todolist() {
@@ -81,8 +82,7 @@ function Todolist() {
         <>
             <div className="functions">
                 <div className="funcL">
-                    <input type="text" id="newTodo" placeholder="Skriv in en sak" />
-                    <button onClick={() => { addTodo() }}>Lägg till</button>
+                    <NewTodo addTodo={addTodo}/>
                 </div>
                 <div className="funcR">
                     <button onClick={() => { deleteAll() }}>Ta bort alla</button>
