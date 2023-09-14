@@ -11,7 +11,6 @@ function Todoitem(props) {
             type="checkbox"
             checked={completed}
             onChange={() => { props.toggleTaskCompleted(id)}}
-            onDelete={() => { props.deleteTodo(id)}}
         />
         <button onClick={() => {props.deleteTodo(id);}}><h1><BiTrash /></h1></button>
     </li>

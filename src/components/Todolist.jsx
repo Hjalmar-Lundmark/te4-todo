@@ -59,11 +59,15 @@ function Todolist() {
     }
 
     const addTodo = () => {
+        if (localStorage.getItem('index') === null) { // is this the best way to check this
+        localStorage.setItem('index', 0)    // The first time user hits this, it creates a number for items id
+        } // without this it becomes null, which I think works identically well but I want it on zero
+
         const newTodo = document.getElementById('newTodo').value;
         if (newTodo === '') return
         const newTodos = [...todos, { id: localStorage.getItem('index'), label: newTodo, completed: false }]    //uses locally stored number to get index
         setTodos(newTodos)
-        localStorage.setItem('index', parseInt(localStorage.getItem('index'))+1 || parseInt(todos.length)+1)    // adds number +1 for ever post created
+        localStorage.setItem('index', parseInt(localStorage.getItem('index'))+1)    // adds number +1 for ever item created
     }
 
     useEffect(() => {
