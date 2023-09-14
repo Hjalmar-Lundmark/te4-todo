@@ -5,4 +5,9 @@
 
 .funcR > button {
     margin-left: 1rem;
+    font-size: 1rem;
+}
+
+.funcL > * {
+    font-size: 1rem;
 }

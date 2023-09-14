@@ -66,7 +66,7 @@ function Todolist() {
 
         const newTodo = document.getElementById('newTodo').value;
         if (newTodo === '') return
-        const newTodos = [...todos, { id: localStorage.getItem('index'), label: newTodo, completed: false }]    //uses locally stored number to get index
+        const newTodos = [...todos, { id: localStorage.getItem('index'), label: newTodo, completed: false }] //uses locally stored number to get index
         setTodos(newTodos)
         localStorage.setItem('index', parseInt(localStorage.getItem('index')) + 1)    // adds number +1 for ever item created
 

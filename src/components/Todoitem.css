@@ -7,8 +7,22 @@
     border: 1px black solid;
 }
 
+.todo-item > * {
+    width: 33%;
+}
+
 .todo-item input[type="checkbox"] {
     margin-left: 1rem;
     width: 5rem;
     height: 5rem;
+}
+
+.deleteBtn {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.deleteBtn > button {
+    font-size: 2rem;
 }
